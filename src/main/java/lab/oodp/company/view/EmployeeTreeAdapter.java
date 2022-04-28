@@ -9,54 +9,56 @@ import javax.swing.tree.TreePath;
 
 public class EmployeeTreeAdapter implements TreeModel {
 
+    private final Employee root;
 
     public EmployeeTreeAdapter(Employee employee) {
-        // TODO complete this
+        this.root = employee;
     }
 
     @Override
     public Object getRoot() {
-        // TODO complete this
-        return null;
+        return root;
     }
 
     @Override
     public Object getChild(Object parent, int index) {
-        // TODO complete this
-        return null;
+        return ((Manager) parent).getEmployees().get(index);
     }
 
     @Override
     public int getChildCount(Object parent) {
-        // TODO complete this
-        return 0;
+        if (parent instanceof Manager) {
+            return ((Manager) parent).getEmployees().size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public boolean isLeaf(Object node) {
-        // TODO complete this
-        return false;
+        if (node instanceof Manager) {
+            return ((Manager) node).getEmployees().size() == 0;
+        } else {
+            return true;
+        }
     }
 
     @Override
     public int getIndexOfChild(Object parent, Object child) {
-        // TODO complete this
-        return 0;
+        return ((Manager) parent).getEmployees().indexOf(child);
     }
 
 
     @Override
     public void valueForPathChanged(TreePath path, Object newValue) {
-        // Unused
+
     }
 
     @Override
     public void addTreeModelListener(TreeModelListener l) {
-        // Unused
     }
 
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
-        // Unused
     }
 }
